@@ -231,7 +231,7 @@ install_snipeit () {
   mysql -u root --execute="CREATE DATABASE snipeit;GRANT ALL PRIVILEGES ON snipeit.* TO snipeit@localhost IDENTIFIED BY '$mysqluserpw';"
 
   echo -e "\n\n* Cloning Snipe-IT from github to the web directory."
-  log "git clone https://github.com/snipe/snipe-it $APP_PATH" & pid=$!
+  log "git clone https://github.com/finn-rm/snipe-it $APP_PATH" & pid=$!
   progress
 
   echo "* Configuring .env file."
