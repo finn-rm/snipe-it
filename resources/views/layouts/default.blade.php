@@ -419,7 +419,7 @@
                <!-- sidebar: style can be found in sidebar.less -->
                <section class="sidebar">
                    <!-- sidebar menu: : style can be found in sidebar.less -->
-                   <ul class="sidebar-menu" data-widget="tree">
+		   <ul class="sidebar-menu" data-widget="tree">
                        @can('admin')
                            <li {!! (\Request::route()->getName()=='home' ? ' class="active"' : '') !!} class="firstnav">
                                <a href="{{ route('home') }}">
@@ -470,39 +470,6 @@
                                            ({{ (isset($total_rtd_sidebar)) ? $total_rtd_sidebar : '' }})
                                        </a>
                                    </li>
-                                   <li{!! (Request::query('status') == 'Pending' ? ' class="active"' : '') !!}><a
-                                               href="{{ url('hardware?status=Pending') }}"><i
-                                                   class="far fa-circle text-orange fa-fw"></i>
-                                           {{ trans('general.all') }}
-                                           {{ trans('general.pending') }}
-                                           ({{ (isset($total_pending_sidebar)) ? $total_pending_sidebar : '' }})
-                                       </a>
-                                   </li>
-                                   <li{!! (Request::query('status') == 'Undeployable' ? ' class="active"' : '') !!} ><a
-                                               href="{{ url('hardware?status=Undeployable') }}"><i
-                                                   class="fas fa-times text-red fa-fw"></i>
-                                           {{ trans('general.all') }}
-                                           {{ trans('general.undeployable') }}
-                                           ({{ (isset($total_undeployable_sidebar)) ? $total_undeployable_sidebar : '' }})
-                                       </a>
-                                   </li>
-                                   <li{!! (Request::query('status') == 'byod' ? ' class="active"' : '') !!}><a
-                                               href="{{ url('hardware?status=byod') }}"><i
-                                                   class="fas fa-times text-red fa-fw"></i>
-                                           {{ trans('general.all') }}
-                                           {{ trans('general.byod') }}
-                                           ({{ (isset($total_byod_sidebar)) ? $total_byod_sidebar : '' }})
-                                       </a>
-                                   </li>
-                                   <li{!! (Request::query('status') == 'Archived' ? ' class="active"' : '') !!}><a
-                                               href="{{ url('hardware?status=Archived') }}"><i
-                                                   class="fas fa-times text-red fa-fw"></i>
-                                           {{ trans('general.all') }}
-                                           {{ trans('admin/hardware/general.archived') }}
-                                           ({{ (isset($total_archived_sidebar)) ? $total_archived_sidebar : '' }})
-                                       </a>
-                                   </li>
-
                                    <li class="divider">&nbsp;</li>
                                    @can('checkin', \App\Models\Asset::class)
                                        <li{!! (Request::is('hardware/quickscancheckin') ? ' class="active"' : '') !!}>
@@ -518,10 +485,6 @@
                                                {{ trans('general.bulk_checkout') }}
                                            </a>
                                        </li>
-                                       <li{!! (Request::is('hardware/requested') ? ' class="active"' : '') !!}>
-                                           <a href="{{ route('assets.requested') }}">
-                                               {{ trans('general.requested') }}</a>
-                                       </li>
                                    @endcan
 
                                    @can('create', \App\Models\Asset::class)
@@ -530,43 +493,8 @@
                                                {{ trans('general.deleted') }}
                                            </a>
                                        </li>
-                                       <li>
-                                           <a href="{{ route('maintenances.index') }}">
-                                               {{ trans('general.asset_maintenances') }}
-                                           </a>
-                                       </li>
-                                   @endcan
-                                   @can('admin')
-                                       <li>
-                                           <a href="{{ url('hardware/history') }}">
-                                               {{ trans('general.import-history') }}
-                                           </a>
-                                       </li>
-                                   @endcan
-                                   @can('audit', \App\Models\Asset::class)
-                                       <li>
-                                           <a href="{{ route('assets.bulkaudit') }}">
-                                               {{ trans('general.bulkaudit') }}
-                                           </a>
-                                       </li>
                                    @endcan
                                </ul>
-                           </li>
-                       @endcan
-                       @can('view', \App\Models\License::class)
-                           <li{!! (Request::is('licenses*') ? ' class="active"' : '') !!}>
-                               <a href="{{ route('licenses.index') }}">
-                                   <i class="far fa-save fa-fw"></i>
-                                   <span>{{ trans('general.licenses') }}</span>
-                               </a>
-                           </li>
-                       @endcan
-                       @can('index', \App\Models\Accessory::class)
-                           <li{!! (Request::is('accessories*') ? ' class="active"' : '') !!}>
-                               <a href="{{ route('accessories.index') }}">
-                                   <i class="far fa-keyboard fa-fw"></i>
-                                   <span>{{ trans('general.accessories') }}</span>
-                               </a>
                            </li>
                        @endcan
                        @can('view', \App\Models\Consumable::class)
@@ -574,14 +502,6 @@
                                <a href="{{ url('consumables') }}">
                                    <i class="fas fa-tint fa-fw"></i>
                                    <span>{{ trans('general.consumables') }}</span>
-                               </a>
-                           </li>
-                       @endcan
-                       @can('view', \App\Models\Component::class)
-                           <li{!! (Request::is('components*') ? ' class="active"' : '') !!}>
-                               <a href="{{ route('components.index') }}">
-                                   <i class="far fa-hdd fa-fw"></i>
-                                   <span>{{ trans('general.components') }}</span>
                                </a>
                            </li>
                        @endcan
@@ -594,14 +514,6 @@
                            </li>
                        @endcan
 
-                       @can('view', \App\Models\User::class)
-                           <li{!! (Request::is('users*') ? ' class="active"' : '') !!}>
-                               <a href="{{ route('users.index') }}" accesskey="6">
-                                   <i class="fas fa-users fa-fw"></i>
-                                   <span>{{ trans('general.people') }}</span>
-                               </a>
-                           </li>
-                       @endcan
                        @can('import')
                            <li{!! (Request::is('import/*') ? ' class="active"' : '') !!}>
                                <a href="{{ route('imports.index') }}">
@@ -755,16 +667,6 @@
                                </ul>
                            </li>
                        @endcan
-
-                       @can('viewRequestable', \App\Models\Asset::class)
-                           <li{!! (Request::is('account/requestable-assets') ? ' class="active"' : '') !!}>
-                               <a href="{{ route('requestable-assets') }}">
-                                   <i class="fa fa-laptop fa-fw"></i>
-                                   <span>{{ trans('admin/hardware/general.requestable') }}</span>
-                               </a>
-                           </li>
-                       @endcan
-
 
                    </ul>
                </section>
