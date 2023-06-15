@@ -11,6 +11,14 @@
                     {{ trans('admin/models/general.add_default_values') }}
                 </label>
             </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var checkbox = document.getElementById('add_default_values').parentNode;
+        setTimeout(function() {
+            checkbox.click();
+        }, 1000);
+});
+</script>
     </div>
     @if ($this->add_default_values ) {{-- 'if the checkbox is enabled *AND* there are more than 0 fields in the fieldsset' --}}
     <div style="padding-left: 10px; padding-bottom: 0px; margin-bottom: -15px;">
@@ -18,8 +26,7 @@
             @if ($fields)
                 @foreach ($fields as $field)
                     <div class="form-group">
-                    
-                            <label class="col-md-3 control-label{{ $errors->has($field->name) ? ' has-error' : '' }}" for="default-value{{ $field->id }}">{{ $field->name }}</label>
+                           <label class="col-md-3 control-label{{ $errors->has($field->name) ? ' has-error' : '' }}" for="default-value{{ $field->id }}">{{ $field->name }}</label>
 
                             <div class="col-md-7">
                                 @if ($field->format == "DATE")
