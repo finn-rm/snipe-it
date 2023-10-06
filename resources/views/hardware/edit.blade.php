@@ -51,6 +51,15 @@
 
 
     @include ('partials.forms.edit.status', [ 'required' => 'true'])
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('select2-status_select_id-container');
+        setTimeout(function() {
+	console.log(document.documentElement);
+        console.log(form)
+        }, 1000);
+});
+</script>
 
 
     @include ('partials.forms.edit.location-select', ['translated_name' => trans('admin/hardware/form.default_location'), 'fieldname' => 'rtd_location_id'])
