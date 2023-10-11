@@ -37,8 +37,9 @@
           </div>
           <div class="col-md-2 col-sm-12">
               <button class="add_field_button btn btn-default btn-sm">
-                  <i class="fas fa-plus"></i>
+                  <i id="addTag" class="fas fa-plus"></i>
               </button>
+              <div disabled id="addMultipleTag" class="add_field_button btn btn-default btn-sm">Qty</div>
           </div>
       @endif
   </div>
@@ -53,12 +54,20 @@
     @include ('partials.forms.edit.status', [ 'required' => 'true'])
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var form = document.getElementById('select2-status_select_id-container');
+	document.querySelector('#addMultipleTag').disabled = false
+	document.querySelector('#addMultipleTag').addEventListener('click', () => {
+	  let input = parseInt(prompt('Enter how many assets you want total'));
+	  for (let i = 1; i <= (input - 2); i++) {
+	    document.querySelector('#addTag').click();
+	  }
+	});
+var form = document.getElementById('select2-status_select_id-container');
         setTimeout(function() {
-	console.log(document.documentElement);
+        console.log(document.documentElement);
         console.log(form)
         }, 1000);
-});
+
+    });
 </script>
 
 
