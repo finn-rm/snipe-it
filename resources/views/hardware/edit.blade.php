@@ -10,7 +10,7 @@
 
 {{-- Page content --}}
 @section('inputFields')
-    @include ('partials.forms.edit.company-select', ['translated_name' => trans('general.company'), 'fieldname' => 'company_id'])
+    @include ('partials.forms.edit.company-select', ['translated_name' => trans('general.company'), 'fieldname' => 'company_id', 'field_req' => true])
 
 
   <!-- Asset Tag -->
@@ -36,10 +36,10 @@
               {!! $errors->first('asset_tag', '<span class="alert-msg"><i class="fas fa-times"></i> :message</span>') !!}
           </div>
           <div class="col-md-2 col-sm-12">
-              <button class="add_field_button btn btn-default btn-sm">
-                  <i id="addTag" class="fas fa-plus"></i>
-              </button>
-              <div disabled id="addMultipleTag" class="add_field_button btn btn-default btn-sm">Qty</div>
+	    <button class="add_field_button btn btn-default btn-sm">
+    	      <i id="addTag" class="fas fa-plus"></i>
+  	    </button>
+	    <div id="addMultipleTag" class="btn btn-default btn-sm">Qty</div>
           </div>
       @endif
   </div>
@@ -57,7 +57,7 @@
 	document.querySelector('#addMultipleTag').disabled = false
 	document.querySelector('#addMultipleTag').addEventListener('click', () => {
 	  let input = parseInt(prompt('Enter how many assets you want total'));
-	  for (let i = 1; i <= (input - 2); i++) {
+	  for (let i = 1; i <= (input - 1); i++) {
 	    document.querySelector('#addTag').click();
 	  }
 	});
