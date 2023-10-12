@@ -505,13 +505,19 @@
                                        @endforeach
                                    @endif
 
-
                                    <li{!! (Request::query('status') == 'Deployed' ? ' class="active"' : '') !!}>
                                        <a href="{{ url('hardware?status=Deployed&company_id=1') }}">
                                            <i class="far fa-circle text-blue fa-fw"></i>
                                            {{ trans('general.all') }}
                                            {{ trans('general.deployed') }}
                                            <!-- ({{ (isset($total_deployed_sidebar)) ? $total_deployed_sidebar : '' }}) -->
+                                       </a>
+                                   </li>
+                                   <li>
+                                       <a href="{{ url('hardware?status=Deployed&company_id=1') }}">
+                                           <i class="far fa-circle text-blue fa-fw"></i>
+                                           {{ trans('All EU assets') }}
+                                           ({{ (isset($total_eu_deployed_sidebar)) ? $total_eu_deployed_sidebar : '' }})
                                        </a>
                                    </li>
                                    <li{!! (Request::query('status') == 'RTD' ? ' class="active"' : '') !!}>
