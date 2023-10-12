@@ -429,14 +429,14 @@
                            </li>
                        @endcan
                        @can('index', \App\Models\Asset::class)
-                           <li class="treeview{{ ((Request::is('statuslabels/*') || Request::is('hardware*')) ? ' active' : '') }}">
+                            <li class="treeview{{ ((Request::is('statuslabels/*') || Request::fullUrlIs('*hardware*company_id=2*')) ? ' active' : '') }}">
                                <a href="#"><i class="fas fa-barcode fa-fw" aria-hidden="true"></i>
-                                   <span>{{ trans('general.assets') }}</span>
+                                   <span>US Assets</span>
                                    <i class="fa fa-angle-left pull-right"></i>
                                </a>
                                <ul class="treeview-menu">
                                    <li>
-                                       <a href="{{ url('hardware') }}">
+                                       <a href="{{ url('hardware?company_id=2') }}">
                                            <i class="far fa-circle text-grey fa-fw" aria-hidden="true"></i>
                                            {{ trans('general.list_all') }}
                                        </a>
@@ -455,46 +455,97 @@
 
 
                                    <li{!! (Request::query('status') == 'Deployed' ? ' class="active"' : '') !!}>
-                                       <a href="{{ url('hardware?status=Deployed') }}">
+                                       <a href="{{ url('hardware?status=Deployed&company_id=2') }}">
                                            <i class="far fa-circle text-blue fa-fw"></i>
                                            {{ trans('general.all') }}
                                            {{ trans('general.deployed') }}
-                                           ({{ (isset($total_deployed_sidebar)) ? $total_deployed_sidebar : '' }})
+                                           <!-- ({{ (isset($total_deployed_sidebar)) ? $total_deployed_sidebar : '' }}) -->
                                        </a>
                                    </li>
                                    <li{!! (Request::query('status') == 'RTD' ? ' class="active"' : '') !!}>
-                                       <a href="{{ url('hardware?status=RTD') }}">
+                                       <a href="{{ url('hardware?status=RTD&company_id=2') }}">
                                            <i class="far fa-circle text-green fa-fw"></i>
                                            {{ trans('general.all') }}
                                            {{ trans('general.ready_to_deploy') }}
-                                           ({{ (isset($total_rtd_sidebar)) ? $total_rtd_sidebar : '' }})
+                                           <!-- ({{ (isset($total_rtd_sidebar)) ? $total_rtd_sidebar : '' }}) -->
                                        </a>
                                    </li>
-                                   <li class="divider">&nbsp;</li>
-                                   @can('checkin', \App\Models\Asset::class)
-                                       <li{!! (Request::is('hardware/quickscancheckin') ? ' class="active"' : '') !!}>
-                                           <a href="{{ route('hardware/quickscancheckin') }}">
-                                               {{ trans('general.quickscan_checkin') }}
-                                           </a>
-                                       </li>
-                                   @endcan
-
-                                   @can('checkout', \App\Models\Asset::class)
-                                       <li{!! (Request::is('hardware/bulkcheckout') ? ' class="active"' : '') !!}>
-                                           <a href="{{ route('hardware.bulkcheckout.show') }}">
-                                               {{ trans('general.bulk_checkout') }}
-                                           </a>
-                                       </li>
-                                   @endcan
-
                                    @can('create', \App\Models\Asset::class)
                                        <li{!! (Request::query('Deleted') ? ' class="active"' : '') !!}>
-                                           <a href="{{ url('hardware?status=Deleted') }}">
+                                           <a href="{{ url('hardware?status=Deleted&company_id=2') }}">
                                                {{ trans('general.deleted') }}
                                            </a>
                                        </li>
                                    @endcan
                                </ul>
+                           </li>
+                       @endcan
+                       @can('index', \App\Models\Asset::class)
+                           <li class="treeview{{ ((Request::is('statuslabels/*') || Request::fullUrlIs('*hardware*company_id=1*')) ? ' active' : '') }}">
+                               <a href="#"><i class="fas fa-barcode fa-fw" aria-hidden="true"></i>
+                                   <span>EU Assets</span>
+                                   <i class="fa fa-angle-left pull-right"></i>
+                               </a>
+                               <ul class="treeview-menu">
+                                   <li>
+                                       <a href="{{ url('hardware?company_id=1') }}">
+                                           <i class="far fa-circle text-grey fa-fw" aria-hidden="true"></i>
+                                           {{ trans('general.list_all') }}
+                                       </a>
+                                   </li>
+
+                                   <?php $status_navs = \App\Models\Statuslabel::where('show_in_nav', '=', 1)->withCount('assets as asset_count')->get(); ?>
+                                   @if (count($status_navs) > 0)
+                                       @foreach ($status_navs as $status_nav)
+                                           <li{!! (Request::is('statuslabels/'.$status_nav->id) ? ' class="active"' : '') !!}>
+                                               <a href="{{ route('statuslabels.show', ['statuslabel' => $status_nav->id]) }}">
+                                                   <i class="fas fa-circle text-grey fa-fw"
+                                                      aria-hidden="true"{!!  ($status_nav->color!='' ? ' style="color: '.e($status_nav->color).'"' : '') !!}></i>
+                                                   {{ $status_nav->name }} ({{ $status_nav->asset_count }})</a></li>
+                                       @endforeach
+                                   @endif
+
+
+                                   <li{!! (Request::query('status') == 'Deployed' ? ' class="active"' : '') !!}>
+                                       <a href="{{ url('hardware?status=Deployed&company_id=1') }}">
+                                           <i class="far fa-circle text-blue fa-fw"></i>
+                                           {{ trans('general.all') }}
+                                           {{ trans('general.deployed') }}
+                                           <!-- ({{ (isset($total_deployed_sidebar)) ? $total_deployed_sidebar : '' }}) -->
+                                       </a>
+                                   </li>
+                                   <li{!! (Request::query('status') == 'RTD' ? ' class="active"' : '') !!}>
+                                       <a href="{{ url('hardware?status=RTD&company_id=1') }}">
+                                           <i class="far fa-circle text-green fa-fw"></i>
+                                           {{ trans('general.all') }}
+                                           {{ trans('general.ready_to_deploy') }}
+                                           <!-- ({{ (isset($total_rtd_sidebar)) ? $total_rtd_sidebar : '' }}) -->
+                                       </a>
+                                   </li>
+                                   @can('create', \App\Models\Asset::class)
+                                       <li{!! (Request::query('Deleted') ? ' class="active"' : '') !!}>
+                                           <a href="{{ url('hardware?status=Deleted&company_id=1') }}">
+                                               {{ trans('general.deleted') }}
+                                           </a>
+                                       </li>
+                                   @endcan
+                               </ul>
+                           </li>
+                       @endcan
+                       @can('checkin', \App\Models\Asset::class)
+                           <li{!! (Request::is('hardware/quickscancheckin*') ? ' class="active"' : '') !!}>
+                               <a href="{{ url('hardware/quickscancheckin') }}">
+                                   <i class="fas fa-sign-in fa-fw"></i>
+                                   <span>{{ trans('general.quickscan_checkin') }}</span>
+                               </a>
+                           </li>
+                       @endcan
+                       @can('checkout', \App\Models\Asset::class)
+                           <li{!! (Request::is('hardware/bulkcheckout*') ? ' class="active"' : '') !!}>
+                               <a href="{{ url('hardware/bulkcheckout') }}">
+                                   <i class="fas fa-sign-out fa-fw"></i>
+                                   <span>{{ trans('general.bulk_checkout') }}</span>
+                               </a>
                            </li>
                        @endcan
                        @can('view', \App\Models\Consumable::class)
