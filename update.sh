@@ -23,6 +23,9 @@ fi
 
 # Perform the file copy operation
 sudo cp -r ~/snipe-it/resources/* /var/www/html/snipeit/resources/
+sudo cp -r ~/snipe-it/app/* /var/www/html/snipeit/app/
+sudo cp -r ~/snipe-it/routes/* /var/www/html/snipeit/routes/
+
 
 # Check the exit status of the cp command
 if [ $? -eq 0 ]; then

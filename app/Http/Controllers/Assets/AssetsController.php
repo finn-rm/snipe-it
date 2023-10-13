@@ -289,8 +289,8 @@ class AssetsController extends Controller
 
             return view('hardware/view', compact('asset', 'qr_code', 'settings'))
                 ->with('use_currency', $use_currency)->with('audit_log', $audit_log);
-        }
-
+        } else { }
+        
         return redirect()->route('hardware.index')->with('error', trans('admin/hardware/message.does_not_exist'));
     }
 
@@ -799,7 +799,6 @@ class AssetsController extends Controller
 
             return redirect()->route('hardware.index')->with('success', trans('admin/hardware/message.restore.success'));
         }
-
         return redirect()->route('hardware.index')->with('error', trans('admin/hardware/message.does_not_exist'));
     }
 
@@ -816,6 +815,13 @@ class AssetsController extends Controller
         $this->authorize('checkin', Asset::class);
 
         return view('hardware/quickscan-checkin');
+    }
+
+    public function quickScanCheckinNew()
+    {
+        $this->authorize('checkin', Asset::class);
+
+        return view('hardware/quickscan-checkin-new');   
     }
 
     public function audit($id)

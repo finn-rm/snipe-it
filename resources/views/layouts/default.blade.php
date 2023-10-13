@@ -143,7 +143,7 @@
                                <li aria-hidden="true"
                                    {!! (Request::is('hardware*') ? ' class="active"' : '') !!} tabindex="-1">
                                    <a href="{{ url('hardware') }}" accesskey="1" tabindex="-1">
-                                       <i class="fas fa-barcode fa-fw" aria-hidden="true"></i>
+                                       <i class="fas fa-usd fa-fw" aria-hidden="true"></i>
                                        <span class="sr-only">{{ trans('general.assets') }}</span>
                                    </a>
                                </li>
@@ -430,7 +430,7 @@
                        @endcan
                        @can('index', \App\Models\Asset::class)
                             <li class="treeview{{ ((Request::is('statuslabels/*') || Request::fullUrlIs('*hardware*company_id=2*')) ? ' active' : '') }}">
-                               <a href="#"><i class="fas fa-barcode fa-fw" aria-hidden="true"></i>
+                               <a href="#"><i class="fas fa-usd fa-fw" aria-hidden="true"></i>
                                    <span>US Assets</span>
                                    <i class="fa fa-angle-left pull-right"></i>
                                </a>
@@ -439,6 +439,7 @@
                                        <a href="{{ url('hardware?company_id=2') }}">
                                            <i class="far fa-circle text-grey fa-fw" aria-hidden="true"></i>
                                            {{ trans('general.list_all') }}
+                                           ({{ (isset($total_us)) ? $total_us : '' }})
                                        </a>
                                    </li>
 
@@ -459,7 +460,7 @@
                                            <i class="far fa-circle text-blue fa-fw"></i>
                                            {{ trans('general.all') }}
                                            {{ trans('general.deployed') }}
-                                           <!-- ({{ (isset($total_deployed_sidebar)) ? $total_deployed_sidebar : '' }}) -->
+                                           ({{ (isset($total_us_deployed_sidebar)) ? $total_us_deployed_sidebar : '' }})
                                        </a>
                                    </li>
                                    <li{!! (Request::query('status') == 'RTD' ? ' class="active"' : '') !!}>
@@ -467,7 +468,7 @@
                                            <i class="far fa-circle text-green fa-fw"></i>
                                            {{ trans('general.all') }}
                                            {{ trans('general.ready_to_deploy') }}
-                                           <!-- ({{ (isset($total_rtd_sidebar)) ? $total_rtd_sidebar : '' }}) -->
+                                           ({{ (isset($total_us_rtd_sidebar)) ? $total_us_rtd_sidebar : '' }})
                                        </a>
                                    </li>
                                    @can('create', \App\Models\Asset::class)
@@ -482,7 +483,7 @@
                        @endcan
                        @can('index', \App\Models\Asset::class)
                            <li class="treeview{{ ((Request::is('statuslabels/*') || Request::fullUrlIs('*hardware*company_id=1*')) ? ' active' : '') }}">
-                               <a href="#"><i class="fas fa-barcode fa-fw" aria-hidden="true"></i>
+                               <a href="#"><i class="fas fa-eur fa-fw" aria-hidden="true"></i>
                                    <span>EU Assets</span>
                                    <i class="fa fa-angle-left pull-right"></i>
                                </a>
@@ -491,6 +492,7 @@
                                        <a href="{{ url('hardware?company_id=1') }}">
                                            <i class="far fa-circle text-grey fa-fw" aria-hidden="true"></i>
                                            {{ trans('general.list_all') }}
+                                           ({{ (isset($total_eu)) ? $total_eu : '' }})
                                        </a>
                                    </li>
 
@@ -510,13 +512,6 @@
                                            <i class="far fa-circle text-blue fa-fw"></i>
                                            {{ trans('general.all') }}
                                            {{ trans('general.deployed') }}
-                                           <!-- ({{ (isset($total_deployed_sidebar)) ? $total_deployed_sidebar : '' }}) -->
-                                       </a>
-                                   </li>
-                                   <li>
-                                       <a href="{{ url('hardware?status=Deployed&company_id=1') }}">
-                                           <i class="far fa-circle text-blue fa-fw"></i>
-                                           {{ trans('All EU assets') }}
                                            ({{ (isset($total_eu_deployed_sidebar)) ? $total_eu_deployed_sidebar : '' }})
                                        </a>
                                    </li>
@@ -525,7 +520,7 @@
                                            <i class="far fa-circle text-green fa-fw"></i>
                                            {{ trans('general.all') }}
                                            {{ trans('general.ready_to_deploy') }}
-                                           <!-- ({{ (isset($total_rtd_sidebar)) ? $total_rtd_sidebar : '' }}) -->
+                                           ({{ (isset($total_eu_rtd_sidebar)) ? $total_eu_rtd_sidebar : '' }})
                                        </a>
                                    </li>
                                    @can('create', \App\Models\Asset::class)
@@ -543,6 +538,14 @@
                                <a href="{{ url('hardware/quickscancheckin') }}">
                                    <i class="fas fa-sign-in fa-fw"></i>
                                    <span>{{ trans('general.quickscan_checkin') }}</span>
+                               </a>
+                           </li>
+                       @endcan
+                       @can('checkin', \App\Models\Asset::class)                
+                           <li{!! (Request::is('hardware/quickscancheckinnew*') ? ' class="active"' : '') !!}>
+                               <a href="{{ url('hardware/quickscancheckinnew') }}">
+                                   <i class="fas fa-exclamation-triangle fa-fw"></i>
+                                   <span>Dev - Quick Scan Checkin</span>
                                </a>
                            </li>
                        @endcan

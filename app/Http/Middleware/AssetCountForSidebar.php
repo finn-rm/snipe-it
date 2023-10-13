@@ -18,13 +18,43 @@ class AssetCountForSidebar
     public function handle($request, Closure $next)
     {
         try {
-            $companyId = 1; // The company ID you want to query
-            $statusArray = ['Deployed', 'RTD']; // Assuming these are your status strings
-            
-            $total_eu_deployed_sidebar = Asset::where('company_id', $companyId)
-                                          ->whereIn('status', $statusArray)
-                                          ->count();
+            $total_eu = Asset::where('company_id', '=', '1')->count();
+            view()->share('total_eu', $total_eu);
+        } catch (\Exception $e) {
+            \Log::debug($e);
+        }
+
+        try {
+            $total_us = Asset::where('company_id', '=', '2')->count();
+            view()->share('total_us', $total_us);
+        } catch (\Exception $e) {
+            \Log::debug($e);
+        }
+
+        try {
+            $total_eu_deployed_sidebar = Asset::Deployed()->where('company_id', '=', '1')->count();
             view()->share('total_eu_deployed_sidebar', $total_eu_deployed_sidebar);
+        } catch (\Exception $e) {
+            \Log::debug($e);
+        }
+
+        try {
+            $total_eu_rtd_sidebar = Asset::RTD()->where('company_id', '=', '1')->count();
+            view()->share('total_eu_rtd_sidebar', $total_eu_rtd_sidebar);
+        } catch (\Exception $e) {
+            \Log::debug($e);
+        }
+
+        try {
+            $total_us_deployed_sidebar = Asset::Deployed()->where('company_id', '=', '2')->count();
+            view()->share('total_us_deployed_sidebar', $total_us_deployed_sidebar);
+        } catch (\Exception $e) {
+            \Log::debug($e);
+        }
+
+        try {
+            $total_us_rtd_sidebar = Asset::RTD()->where('company_id', '=', '2')->count();
+            view()->share('total_us_rtd_sidebar', $total_us_rtd_sidebar);
         } catch (\Exception $e) {
             \Log::debug($e);
         }
