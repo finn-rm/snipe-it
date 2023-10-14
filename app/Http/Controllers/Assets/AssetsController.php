@@ -824,6 +824,13 @@ class AssetsController extends Controller
         return view('hardware/quickscan-checkin-new');   
     }
 
+    public function quickScanCheckoutNew()
+    {
+        $this->authorize('checkout', Asset::class);
+
+        return view('hardware/quickscan-checkout-new');   
+    }
+
     public function audit($id)
     {
         $settings = Setting::getSettings();

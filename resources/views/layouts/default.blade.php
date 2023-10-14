@@ -533,47 +533,22 @@
                                </ul>
                            </li>
                        @endcan
-                       @can('checkin', \App\Models\Asset::class)
-                           <li{!! (Request::is('hardware/quickscancheckin*') ? ' class="active"' : '') !!}>
-                               <a href="{{ url('hardware/quickscancheckin') }}">
-                                   <i class="fas fa-sign-in fa-fw"></i>
-                                   <span>{{ trans('general.quickscan_checkin') }}</span>
+                       @can('checkout', \App\Models\Asset::class)
+                           <li{!! (Request::is('hardware/quickscancheckoutnew*') ? ' class="active"' : '') !!}>
+                               <a href="{{ url('hardware/quickscancheckoutnew') }}">
+                                   <i class="fas fa-sign-out fa-fw"></i>
+                                   <span>Quick Scan Checkout</span>
                                </a>
                            </li>
                        @endcan
                        @can('checkin', \App\Models\Asset::class)                
                            <li{!! (Request::is('hardware/quickscancheckinnew*') ? ' class="active"' : '') !!}>
                                <a href="{{ url('hardware/quickscancheckinnew') }}">
-                                   <i class="fas fa-exclamation-triangle fa-fw"></i>
-                                   <span>Dev - Quick Scan Checkin</span>
+                                   <i class="fas fa-sign-in fa-fw"></i>
+                                   <span>Quick Scan Checkin</span>
                                </a>
                            </li>
                        @endcan
-                       @can('checkout', \App\Models\Asset::class)
-                           <li{!! (Request::is('hardware/bulkcheckout*') ? ' class="active"' : '') !!}>
-                               <a href="{{ url('hardware/bulkcheckout') }}">
-                                   <i class="fas fa-sign-out fa-fw"></i>
-                                   <span>{{ trans('general.bulk_checkout') }}</span>
-                               </a>
-                           </li>
-                       @endcan
-                       @can('view', \App\Models\Consumable::class)
-                           <li{!! (Request::is('consumables*') ? ' class="active"' : '') !!}>
-                               <a href="{{ url('consumables') }}">
-                                   <i class="fas fa-tint fa-fw"></i>
-                                   <span>{{ trans('general.consumables') }}</span>
-                               </a>
-                           </li>
-                       @endcan
-                       @can('view', \App\Models\PredefinedKit::class)
-                           <li{!! (Request::is('kits') ? ' class="active"' : '') !!}>
-                               <a href="{{ route('kits.index') }}">
-                                   <i class="fa fa-object-group fa-fw"></i>
-                                   <span>{{ trans('general.kits') }}</span>
-                               </a>
-                           </li>
-                       @endcan
-
                        @can('import')
                            <li{!! (Request::is('import/*') ? ' class="active"' : '') !!}>
                                <a href="{{ route('imports.index') }}">

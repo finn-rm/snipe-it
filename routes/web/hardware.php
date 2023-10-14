@@ -32,6 +32,10 @@ Route::group(
         [AssetsController::class, 'quickScanCheckinNew']
         )->name('hardware/quickscancheckinnew');
 
+        Route::get('quickscancheckoutnew',
+        [AssetsController::class, 'quickScanCheckoutNew']
+        )->name('hardware/quickscancheckoutnew');
+
         Route::get('quickscancheckin',
             [AssetsController::class, 'quickScanCheckin']
         )->name('hardware/quickscancheckin');

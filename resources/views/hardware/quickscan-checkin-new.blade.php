@@ -79,7 +79,7 @@ $("#checkin-form").submit(function (event) {
     var selectedLocationName = document.getElementById('select2-location_id_location_select-container').title;
 
     if ( !assetTag ) { return; }
-    $('#checkin-form')[0].reset()
+    $('#asset_tag')[0].value = ""
     $('#checkedin-div').show();
     $('#checkin-loader').show();
 
