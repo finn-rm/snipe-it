@@ -15,9 +15,9 @@ const companyID = params.get('company_id');
 const ids = JSON.parse(params.get('ids'));
 const getLabels = JSON.parse(params.get('get_labels'));
 
-const urlRedirect = "https://us-seinventory.ddns.net/custom-pages/post_redirect.html";
-const urlBulkEdit = `https://us-seinventory.ddns.net/hardware/bulkedit`;
-const urlHome = `https://us-seinventory.ddns.net/hardware?company_id=${companyID}`
+const urlRedirect = `${window.location.origin}/custom-pages/post_redirect.html`;
+const urlBulkEdit = `${window.location.origin}/hardware/bulkedit`;
+const urlHome = `${window.location.origin}/hardware?company_id=${companyID}`
 
 const form = document.createElement('form');
 form.method = 'POST';
