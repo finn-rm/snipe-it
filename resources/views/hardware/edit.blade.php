@@ -95,6 +95,14 @@ var form = document.getElementById('select2-status_select_id-container');
         @endif
     </div>
    
+    <!-- Add a checkbox here -->
+    <!-- If checked, generate_labels should be sent to the form with the value of "true" when it is submitted -->
+    <!-- If unchecked, generate_labels should be sent to the form with the value of "false" when it is submitted -->
+    <div class="col-md-7 col-sm-12">
+        <label>
+            <input type="checkbox" name="generate_labels" value="true"> Generate Labels
+        </label>
+    </div>
 @stop
 
 @section('moar_scripts')

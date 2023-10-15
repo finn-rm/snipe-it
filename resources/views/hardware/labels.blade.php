@@ -105,7 +105,6 @@ $qr_size = ($settings->alt_barcode_enabled=='1') && ($settings->alt_barcode!='')
         {!! $snipeSettings->show_custom_css() !!}
     @endif
 </style>
-
 @foreach ($assets as $asset)
     <?php $count++; ?>
     <div class="label">

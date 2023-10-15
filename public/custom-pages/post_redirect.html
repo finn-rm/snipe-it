@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+</head>
+<body>
+    <form id="postForm" action="https://us-seinventory.ddns.net/hardware/bulkedit" method="POST">
+        <input type="hidden" name="_token" value="">
+        <input type="hidden" name="bulk_actions" value="">
+        <input type="hidden" name="ids" value="">
+    </form>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById('postForm')._token.value = params.get('_token');
+        document.getElementById('postForm').bulk_actions.value = params.get('bulk_actions');
+        document.getElementById('postForm').ids.value = params.get('ids');
+
+        console.log(params.get('_token'))
+        console.log(params.get('bulk_actions'))
+        console.log(params.get('ids'))
+        //document.getElementById('postForm').submit();
+    </script>
+</body>
+</html>

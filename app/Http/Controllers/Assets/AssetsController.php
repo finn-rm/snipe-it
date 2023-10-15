@@ -33,6 +33,7 @@ use Slack;
 use Str;
 use TCPDF;
 use View;
+use Illuminate\Support\Facades\Http;
 
 /**
  * This class controls all actions related to assets for
@@ -111,11 +112,14 @@ class AssetsController extends Controller
         // This is only necessary on create, not update, since bulk editing is handled
         // differently
         $asset_tags = $request->input('asset_tags');
+        $generate_labels = $request->input('generate_labels');
 
         $settings = Setting::getSettings();
 
         $success = false;
         $serials = $request->input('serials');
+
+        $assetIDs = [];
 
         for ($a = 1; $a <= count($asset_tags); $a++) {
             $asset = new Asset();
@@ -205,19 +209,36 @@ class AssetsController extends Controller
                 }
 
                 $success = true;
-                
+                $assetIDs[] = $asset->id;
             }
         }
 
         if ($success) {
+            if ($request->generate_labels == true) {
+                \Log::debug("generate labels!");
+
+                $data = [
+                    "_token" => csrf_token(),
+                    "bulk_actions" => "labels",
+                    "ids" => $assetIDs
+                ];             
+
+                $url = url('custom-pages/post_redirect.html') . 
+                    '?_token=' . urlencode(csrf_token()) . 
+                    '&bulk_actions=' . urlencode("labels") . 
+                    '&ids=' . urlencode(json_encode($assetIDs));
+                return redirect($url);
+                
+
+            } else {
+                return redirect()->route('hardware.index')
+                    ->with('success', trans('admin/hardware/message.create.success'));
+            }
+
             // Redirect to the asset listing page
             $minutes = 518400;
             // dd( $_POST['options']);
             // Cookie::queue(Cookie::make('optional_info', json_decode($_POST['options']), $minutes));
-            return redirect()->route('hardware.index')
-                ->with('success', trans('admin/hardware/message.create.success'));
-               
-      
         }
 
         return redirect()->back()->withInput()->withErrors($asset->getErrors());
@@ -550,6 +571,7 @@ class AssetsController extends Controller
      */
     public function getLabel($assetId = null)
     {
+        \Log::debug('Entering label creation');
         if (isset($assetId)) {
             $asset = Asset::find($assetId);
             $this->authorize('view', $asset);

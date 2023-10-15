@@ -29,6 +29,8 @@ class BulkAssetsController extends Controller
      */
     public function edit(Request $request)
     {
+        \Log::debug('Bulk edit');
+        \Log::debug($request);
         $this->authorize('view', Asset::class);
 
         if (! $request->filled('ids')) {

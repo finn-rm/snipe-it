@@ -25,7 +25,7 @@ fi
 sudo cp -r ~/snipe-it/resources/* /var/www/html/snipeit/resources/
 sudo cp -r ~/snipe-it/app/* /var/www/html/snipeit/app/
 sudo cp -r ~/snipe-it/routes/* /var/www/html/snipeit/routes/
-
+sudo cp -r ~/snipe-it/public/* /var/www/html/snipeit/public/
 
 # Check the exit status of the cp command
 if [ $? -eq 0 ]; then
