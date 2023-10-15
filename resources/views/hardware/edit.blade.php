@@ -73,6 +73,17 @@ var form = document.getElementById('select2-status_select_id-container');
 
     @include ('partials.forms.edit.location-select', ['translated_name' => trans('admin/hardware/form.default_location'), 'fieldname' => 'rtd_location_id'])
 
+    <div class="form-group ">
+        <div class="col-md-3 control-label">
+            <strong>Generate Labels</strong>
+        </div>
+        <div class="col-md-7">
+            <label class="form-control">
+            <input aria-label="generate_labels" checked="checked" name="generate_labels" type="checkbox" value="true">
+            Yes
+            </label>
+        </div>
+    </div>
 
 
 
@@ -93,15 +104,6 @@ var form = document.getElementById('select2-status_select_id-container');
         @if (isset($model) && $model)
         @include("models/custom_fields_form",["model" => $model])
         @endif
-    </div>
-   
-    <!-- Add a checkbox here -->
-    <!-- If checked, generate_labels should be sent to the form with the value of "true" when it is submitted -->
-    <!-- If unchecked, generate_labels should be sent to the form with the value of "false" when it is submitted -->
-    <div class="col-md-7 col-sm-12">
-        <label>
-            <input type="checkbox" name="generate_labels" value="true"> Generate Labels
-        </label>
     </div>
 @stop
 

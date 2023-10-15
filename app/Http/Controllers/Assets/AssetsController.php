@@ -226,7 +226,8 @@ class AssetsController extends Controller
                 $url = url('custom-pages/post_redirect.html') . 
                     '?_token=' . urlencode(csrf_token()) . 
                     '&bulk_actions=' . urlencode("labels") . 
-                    '&ids=' . urlencode(json_encode($assetIDs));
+                    '&ids=' . urlencode(json_encode($assetIDs)) .
+                    '&company_id=' . urlencode($request->input('company_id'));
                 return redirect($url);
                 
 

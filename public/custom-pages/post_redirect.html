@@ -6,22 +6,89 @@
     <title>Redirecting...</title>
 </head>
 <body>
-    <form id="postForm" action="https://us-seinventory.ddns.net/hardware/bulkedit" method="POST">
-        <input type="hidden" name="_token" value="">
-        <input type="hidden" name="bulk_actions" value="">
-        <input type="hidden" name="ids" value="">
-    </form>
-
     <script>
-        const params = new URLSearchParams(window.location.search);
-        document.getElementById('postForm')._token.value = params.get('_token');
-        document.getElementById('postForm').bulk_actions.value = params.get('bulk_actions');
-        document.getElementById('postForm').ids.value = params.get('ids');
+const currentURL = window.location.origin;
+const params = new URLSearchParams(window.location.search);
+const token = params.get('_token');
+const bulkActions = params.get('bulk_actions');
+const companyID = params.get('company_id');
+const ids = JSON.parse(params.get('ids'));
+const getLabels = JSON.parse(params.get('get_labels'));
 
-        console.log(params.get('_token'))
-        console.log(params.get('bulk_actions'))
-        console.log(params.get('ids'))
-        //document.getElementById('postForm').submit();
+const urlRedirect = "https://us-seinventory.ddns.net/custom-pages/post_redirect.html";
+const urlBulkEdit = `https://us-seinventory.ddns.net/hardware/bulkedit`;
+const urlHome = `https://us-seinventory.ddns.net/hardware?company_id=${companyID}`
+
+const form = document.createElement('form');
+form.method = 'POST';
+form.action = urlBulkEdit;
+
+const tokenInput = document.createElement('input');
+tokenInput.type = 'hidden';
+tokenInput.name = '_token';
+tokenInput.value = token;
+
+const bulkActionsInput = document.createElement('input');
+bulkActionsInput.type = 'hidden';
+bulkActionsInput.name = 'bulk_actions';
+bulkActionsInput.value = bulkActions;
+
+ids.forEach(id => {
+    const idInput = document.createElement('input');
+    idInput.type = 'hidden';
+    idInput.name = 'ids[]';
+    idInput.value = id;
+    form.appendChild(idInput);
+});
+
+form.appendChild(tokenInput);
+form.appendChild(bulkActionsInput);
+document.body.appendChild(form);
+
+
+var newWin = window.open('', '_blank', 'width=300,height=300,left=100,top=100');             
+if(!newWin || newWin.closed || typeof newWin.closed=='undefined') 
+{ 
+    alert('Please enable pop-ups for this website to use certain features.');
+    const newH1 = document.createElement('h1');
+    newH1.textContent = 'Please refresh and try again';
+    document.body.appendChild(newH1);
+} else {
+    newWin.close();
+
+    if ( getLabels ) {
+        console.log(form)
+        form.submit();
+    } else {
+        var newWin = window.open(urlRedirect+window.location.search+'&get_labels=true', '_blank', 'width=900,height=900,left=100,top=100');
+        window.location.href = urlHome; 
+    }
+}
+
+
+
+/** 
+var newWin = window.open('', '_blank', 'width=300,height=300,left=100,top=100');             
+if(!newWin || newWin.closed || typeof newWin.closed=='undefined') 
+{ 
+    alert('Please enable pop-ups for this website to use certain features.');
+    const newH1 = document.createElement('h1');
+    newH1.textContent = 'Please refresh and try again';
+    document.body.appendChild(newH1);
+} else {
+    newWin.close();
+    if (getLabels == true) { 
+        console.log(form)
+        form.submit();
+    } else {
+        console.log(urlMod+window.location.search+'&get_labels=true');
+        
+        var newWin = window.open(urlMod+window.location.search+'&get_labels=true', '_blank', 'width=900,height=900,left=100,top=100');
+        window.location.href = urlHome; 
+    }
+    
+}
+**/
     </script>
 </body>
 </html>
