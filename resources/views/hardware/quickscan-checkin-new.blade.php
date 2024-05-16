@@ -164,7 +164,7 @@ function checkInAsset(_assetTag, _assetID, _currentLocation, _currentRTDLocation
         // Update the default location if it was changed.
 
         if ( _selectedLocation.value == '' || (_currentRTDLocation.id == _selectedLocation.value) ) { 
-            let checkedInStatus = 'Checked into default location';
+            let checkedInStatus = "Checked in to default location: " + _currentRTDLocation.name;
             createCheckinStatus(_assetTag, checkedInStatus, 0);
             incrementOnSuccess();
             return;
