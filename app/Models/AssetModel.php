@@ -29,6 +29,7 @@ class AssetModel extends SnipeModel
     protected $rules = [
         'name'              => 'required|min:1|max:255',
         'model_number'      => 'max:255|nullable',
+        'unit_cost'         => 'required',
         'category_id'       => 'required|integer|exists:categories,id',
         'manufacturer_id'   => 'integer|exists:manufacturers,id|nullable',
         'eol'               => 'integer:min:0|max:240|nullable',
@@ -60,6 +61,7 @@ class AssetModel extends SnipeModel
      */
     protected $fillable = [
         'category_id',
+        'unit_cost',
         'depreciation_id',
         'eol',
         'fieldset_id',

@@ -42,6 +42,11 @@
               </label>
 
               <label class="form-control">
+                {{ Form::checkbox('unit_cost', '1', '1') }}
+                Unit Cost
+              </label>
+
+              <label class="form-control">
                 {{ Form::checkbox('company', '1', '1') }}
                 {{ trans('general.company') }}
               </label>

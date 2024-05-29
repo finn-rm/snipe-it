@@ -428,6 +428,10 @@ class ReportsController extends Controller
                 $header[] = trans('general.id');
             }
 
+            if ($request->filled('unit_cost')) {
+                $header[] = 'Unit Cost';
+            }
+
             if ($request->filled('company')) {
                 $header[] = trans('general.company');
             }
@@ -681,6 +685,10 @@ class ReportsController extends Controller
 
                     if ($request->filled('id')) {
                         $row[] = ($asset->id) ? $asset->id : '';
+                    }
+
+                    if ($request->filled('unit_cost')) {
+                        $row[] = ($asset->model) ? $asset->model->unit_cost : '';
                     }
 
                     if ($request->filled('company')) {
