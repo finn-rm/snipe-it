@@ -74,6 +74,11 @@ abstract class Presenter
         return $this->model->name;
     }
 
+    public function unit_cost()
+    {
+        return $this->model->unit_cost;
+    }
+
     public function __get($property)
     {
         if (method_exists($this, $property)) {

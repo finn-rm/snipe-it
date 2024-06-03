@@ -32,6 +32,13 @@ class AssetModelPresenter extends Presenter
                 'visible' => false,
                 'formatter' => 'companiesLinkObjFormatter',
             ], [
+                'field' => 'unit_cost',
+                'searchable' => true,
+                'sortable' => true,
+                'visible' => false,
+                'title' => 'Unit Cost',
+                'formatter' => 'unitCostFormatter',
+            ], [
                 'field' => 'name',
                 'searchable' => true,
                 'sortable' => true,

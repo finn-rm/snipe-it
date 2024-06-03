@@ -35,6 +35,7 @@ class AssetModelsController extends Controller
         $allowed_columns =
             [
                 'id',
+                'unit_cost',
                 'image',
                 'name',
                 'model_number',
@@ -49,6 +50,7 @@ class AssetModelsController extends Controller
 
         $assetmodels = AssetModel::select([
             'models.id',
+            'models.unit_cost',
             'models.image',
             'models.name',
             'model_number',
@@ -240,6 +242,7 @@ class AssetModelsController extends Controller
         $this->authorize('view.selectlists');
         $assetmodels = AssetModel::select([
             'models.id',
+            'models.unit_cost',
             'models.name',
             'models.image',
             'models.model_number',

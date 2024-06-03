@@ -275,6 +275,11 @@
                             {{ $model->model_number }}
                         </li>
                     @endif
+                    @if ($model->unit_cost)
+                        <li>
+                            {{ $model->unit_cost }}
+                        </li>
+                    @endif
 
                     @if ($model->depreciation)
                         <li>

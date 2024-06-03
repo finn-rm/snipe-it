@@ -40,6 +40,7 @@ class AssetModelsTransformer
 
         $array = [
             'id' => (int) $assetmodel->id,
+            'unit_cost' => e($assetmodel->unit_cost),
             'name' => e($assetmodel->name),
             'manufacturer' => ($assetmodel->manufacturer) ? [
                 'id' => (int) $assetmodel->manufacturer->id,

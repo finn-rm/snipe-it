@@ -595,6 +595,10 @@
         }
     }
 
+    function unitCostFormatter(value) {
+        return value ? '<label>$' + parseFloat(value).toFixed(2) + '</label>' : '-';
+    }
+
     function dateDisplayFormatter(value) {
         if (value) {
             return  value.formatted;
